@@ -1,0 +1,12 @@
+<div class="container" *ngIf="shoppingCartItems.length != 0">
+  <div class="row">
+    <div class="col-md-10"><b>Name</b></div>
+    <div class="col-md-2"><b>Price</b></div>
+  </div>
+  <app-shopping-cart-item *ngFor="let item of shoppingCartItems" [item]="item">
+  </app-shopping-cart-item>
+</div>
+
+<div *ngIf="shoppingCartItems.length === 0">
+  Buy something nice!
+</div>

@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8"><b>Name</b></div>
+    <div class="col-md-2"><b>Price</b></div>
+    <div class="col-smd-2"></div>
+  </div>
+  <app-catalog-item
+    *ngFor="let product of products"
+    [product]="product"
+    (buyProduct)="buyProduct($event)">
+  </app-catalog-item>
+</div>
