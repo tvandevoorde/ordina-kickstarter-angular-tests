@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from './product.model';
 import { ShoppingCartItem } from './shopping-cart-item.model';
+import { QueryValueType } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,18 @@ export class AppComponent {
   }
 
     addToCart(product: Product): void {
-      this.shoppingCart.push(product);
+      let shoppingCartItem = this.shoppingCart.find(i => i.name === product.name);
+      if (!shoppingCartItem) {
+        shoppingCartItem = {
+          name: product.name,
+          quantity: 1, price:
+          product.price
+        } as ShoppingCartItem;
+        this.shoppingCart.push(shoppingCartItem);
+      } else {
+        shoppingCartItem.quantity++;
+        shoppingCartItem.price += product.price;
+      }
       this.total += product.price;
     }
 
