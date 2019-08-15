@@ -10,6 +10,7 @@ import { ShoppingCartItem } from './shopping-cart-item.model';
 export class AppComponent {
   products: Product[];
   shoppingCart: ShoppingCartItem[];
+  total: number = 0;
 
   constructor() {
     this.products = [
@@ -31,6 +32,7 @@ export class AppComponent {
 
     addToCart(product: Product): void {
       this.shoppingCart.push(product);
+      this.total += product.price;
     }
 
 }

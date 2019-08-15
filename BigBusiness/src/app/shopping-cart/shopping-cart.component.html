@@ -5,6 +5,11 @@
   </div>
   <app-shopping-cart-item *ngFor="let item of shoppingCartItems" [item]="item">
   </app-shopping-cart-item>
+  <hr />
+  <div class="row">
+      <div class="col-md-10"><b>Total</b></div>
+      <div class="col-md-2"><b>{{ total }}</b></div>
+  </div>
 </div>
 
 <div *ngIf="shoppingCartItems.length === 0">
