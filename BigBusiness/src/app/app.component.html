@@ -3,17 +3,11 @@
   <div class="row">
     <div class="col-sm border">
       <h2>Products</h2>
-      <app-product-catalog
-        [products]="products"
-        (addToCart)="addToCart($event)">
-      </app-product-catalog>
+      <app-product-catalog></app-product-catalog>
     </div>
     <div class="col-sm border">
       <h2>Shopping cart</h2>
-      <app-shopping-cart
-        [shoppingCartItems]="shoppingCart"
-        [total]="total">
-      </app-shopping-cart>
+      <app-shopping-cart></app-shopping-cart>
     </div>
   </div>
 </div>
