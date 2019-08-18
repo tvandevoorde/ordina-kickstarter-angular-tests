@@ -1,0 +1,4 @@
+<h1>{{ product?.name }}</h1>
+<p>Price: {{ product?.price | currency: 'EUR' }}</p>
+<a (click)="buy(product)" href="javascript:void(0)">buy</a>
+<p>{{ product?.description }}</p>

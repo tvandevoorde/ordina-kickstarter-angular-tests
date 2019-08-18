@@ -8,7 +8,7 @@ import { ShoppingCartItemComponent } from './components/shopping-cart-item/shopp
 @NgModule({
   declarations: [
     ShoppingCartComponent,
-    ShoppingCartItemComponent,
+    ShoppingCartItemComponent
   ],
   imports: [
     CommonModule,
