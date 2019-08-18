@@ -1,46 +1,21 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Product } from '../models/product.model';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private products: Product[];
-  private products$ = new EventEmitter<Product[]>();
+  private baseUrl = '/api/products';
 
-  constructor() {
-    // tslint:disable: max-line-length
-    this.products = [
-      { id: 1, name: 'PlayStation 4 Slim 500GB Black', price: 299, description: 'Ervaar een slankere, kleinere PS4 met geweldige gamepower. De interne architectuur van de nieuwe PS4 slim is vernieuwd, waardoor het volume met meer dan 30% is verminderd ten opzichte van de vorige modellen en hij respectievelijk 25% en 16% minder weegt ten opzichte van het eerste (CUH-1000) en de tweede (CUH- 1200) model. De PS4 Slim is ook energiezuiniger met 34% en 28% minder stroomverbruik.' },
-      { id: 2, name: 'PlayStation 4 Pro 1TB Black', price: 399, description: ' De PlayStation 4 Pro neemt het schuine design van de vorige modellen over en lijkt uit drie lagen te bestaan, afgewerkt met een glanzend PlayStation symbool in het midden van het bovenoppervlak. De console bevat nu ook een extra USB-poort aan de achterzijde naast de twee USB-poorten aan de voorzijde om gemakkelijker extra apparaten aan te kunnen sluiten, met inbegrip van het PlayStation VR virtual reality-systeem.' },
-      { id: 3, name: 'Xbox One S White 1TB All-Digital Edition', price: 229, description: 'Ga volledig digitaal met de Xbox One S All-Digital Edition* en speel games zonder gebruik te maken van discs. Drie geweldige digitale games zijn al inbegrepen: Minecraft, Sea of Thieves en and Forza Horizon 3. Stel een digitale gamecatalogus samen die je altijd bij je hebt. Je kunt nooit meer games kwijtraken of beschadigen en je hebt altijd wat nieuws te spelen. Haal nog meer uit je console met Xbox Game Pass (apart verkrijgbaar): ontdek meer dan 100 geweldige games, download titels die je altijd al wilde spelen en speel je favorieten van vroeger opnieuw. Sla je games op in de cloud en neem ze overal mee naartoe. Je kunt op elke andere Xbox One verder spelen, gewoon door je aan te melden met je Microsoft-account. Installeer je nieuwe games vooraf, zodat je ze na de release meteen kunt spelen. Speel games, kijk naar entertainment in 4K of stream gameplay op Mixer met één druk op de knop. Dit is dé manier om te genieten van Xbox One. (Om Sea of Thieves te spelen, heb je een Xbox Live Gold-abonnement nodig (apart verkrijgbaar.)' },
-      { id: 4, name: 'Xbox One X 1TB Gears 5 Limited Edition', price: 479, description: 'Met de Xbox One X Gears 5 Limited Edition-bundel komt het Gears-universum op verbluffende wijze tot leven. De console is voorzien van een prachtig ontwerp van de Crimson Omen met ijs en sneeuw, vormgegeven door Rod Fergusson, een van de makers van Gears. Kait Diaz probeert te achterhalen wat haar relatie met de vijand is. Zo ontdekt ze wie het grootste gevaar is voor Sera: zijzelf. Deze bundel bevat een Limited Edition Xbox One X, de volledige downloadversie van Gears 5 Ultimate Edition, volledige downloadversies van Gears of War Ultimate Edition én Gears of War 2, 3 en 4, een Xbox Game Pass-proefperiode van 1 maand, Xbox Live Gold-proeflidmaatschap van 1 maand en een Kait Diaz Limited Edition controller.' },
-      { id: 5, name: 'Nintendo Switch Neon Blue & Red', price: 329, description: 'De Nintendo Switch biedt je de kans om dezelfde games te spelen waar, wanneer en met wie je wil. De Nintendo Switch combineert de flexibiliteit van een handheld-systeem met de kracht van een systeem voor thuis, wat gloednieuwe manieren biedt om games te spelen. De Nintendo Switch is een revolutionair gamesysteem. Niet alleen kun je het thuis aansluiten op de tv, maar je kunt het ook in een handomdraai veranderen in een handheldsysteem met een beeldscherm van 6,2 inch, waarop je onderweg kunt spelen. Voor het eerst kan je altijd en overal genieten van de ervaring die gamesystemen voor thuis bieden. Het scherm is een geavanceerd touchscreen met multi-touchmogelijkheden voor compatibele games. De batterij kan van twee en een half tot zes uur meegaan, afhankelijk van de game en de omstandigheden waarin het systeem wordt gebruikt. Als je niet thuis bent, kun je de Nintendo Switch opladen door de voeding aan te sluiten op de USB Type-C-poort van het systeem.' },
-      { id: 6, name: 'Sony DualShock 4 Controller V2 Glacier White PS4', price: 59.98, description: 'De vernieuwde DualShock 4 controller heeft een lichtgevende lijn in dezelfde kleur als die van de lichtbalk boven de touchpad. Hierdoor kan je visuele informatie -zoals welk karakter je controleert of de status van je gezondheid - nog gemakkelijker controleren. Bovendien ondersteunt de nieuwe DualShock 4 communicatie via USB, naast de Bluethooth communicatie, zodat je de controller ook bedraad kan gebruiken zonder mogelijke interferentie van andere Bluetooth apparaten.' },
-      { id: 7, name: 'Afterglow LVL 3 Black Headset', price: 29.98, description: 'De LVL 3 Headset van Afterglow werd speciaal ontwikkeld voor PlayStation 4. De Afterglow headsets zijn gemaakt met comfort, kwaliteit en gebruiksgemak als belangrijkste pijlers voor je lange gamingsessies. De headset maakt gebruik van 40mm audio drivers voor een gebalanceerd stereo geluid. De headset is uitgerust met een flexibele noise-canceling microfoon die je omhoog kan plaatsen wanneer je niet wil praten met je vrienden. Een chatsessie met je online vrienden tijdens een potje Fortnite is nooit zo makkelijk en helder geweest. Plug de headset in de 3,5mm jack aansluiting op je controller en je bent gestart!' },
-      { id: 8, name: 'Turtle Beach Ear Force Recon 70 PS4 Gaming Headset', price: 29.98, description: 'Haal je volgende Victory Royale, je nieuwste prestatie en nog veel meer binnen met de Turtle Beach Recon 70 gamingheadset voor PS4 Pro en PS4. Het instapmodel Recon 70 heeft het nieuwste lichtgewicht en comfortabele headsetontwerp van Turtle Beach voor urenlang gameplezier, met eersteklas 40 mm-speakers en premium kussens over het oor van synthetisch leer, waarmee je alle heldere hoge en supervette lage tonen kunt horen en ruis kunt blokkeren. De Recon 70 maakt gebruik van de beroemde en sterk gevoelige microfoon van Turtle Beach om ervoor te zorgen dat je duidelijk hoorbaar bent en kan eenvoudig omhoog worden geklapt om te dempen. Daarnaast is de headset door zijn veelzijdige 3,5 mm-aansluiting perfect om te schakelen tussen PS4- en Xbox One controllers, Nintendo Switch, pc en compatibele mobiele apparaten.' },
-      { id: 9, name: 'MetalTech Wireless Controller Blue - Steelplay', price: 44.98, description: 'Speel met de Steelplay MetalTech controller en krijg een voorsprong op de tegenstander! De MetalTech controller beschikt over alles dat je kent van een traditionele controller: een klassieke layout met twee joysticks, SHARE- en OPTIONS-knop, touchpad en ingebouwde LED-verlichting. Wat je een streepje voor geeft zijn de vier extra knoppen aan de achterkant. Deze kun je zelf programmeren zodat het jou het beste kan helpen. De controllers zijn afgewerkt met een zachte coating waardoor ze comfortabel en zacht in de hand liggen. De MetalTech controllers zijn geschikt voor alle PlayStation 4 en PlayStation 3 modellen en PC. Sluit ze aan via Bluetooth en speel direct!' },
-      { id: 10, name: 'Xbox ELite Wireless Controller Series 2', price: 179.98, description: 'Met de nieuwe Xbox Elite Series 2 controller beschik je over meer dan 30 manieren om te spelen als een pro. Geniet van onbeperkte aanpassingsmogelijkheden dankzij de nieuwe verwisselbare onderdelen en drie persoonlijke profielen die je kunt opslaan op de controller. Met de verwisselbare sticks, navigatiepads en paddles kun je de controller altijd volledig aanpassen aan jouw gamestijl. Geniet nog langer van je games dankzij een oplaadbare batterij die tot wel 40 uur speelplezier kan bieden. Gebruik de controller op zowel je Xbox One als Windows 10-apparaten. Met deze compleet nieuwe controller heb je werkelijk alles in handen: uitzonderlijke prestaties, geweldige aanpassingsmogelijkheden en optimale duurzaamheid.' },
-      { id: 11, name: 'Razer Wolverine Tournament Edition Controller', price: 129.98, description: 'Word een winnaar met de Razer Wolverine Tournament Edition, een controller die je op je Xbox One en PC kan aansluiten en aanpassen waardoor je een streepje voor hebt tijdens het gamen. De Wolverine is ontworpen voor de e-sports professional: de controller past zich aan elke gaming situatie aan.' },
-      { id: 12, name: 'Nintendo Switch Wired Controller', price: 34.98, description: 'PowerA is officiële partner met Nintendo voor kwaliteitsvolle controllers voor een zachte prijs. De Wired Controller ziet er goed uit, ligt goed in de handen en heeft een drie meter lange draad die je via USB kan verbinden aan de Nintendo Switch. De controller geniet van zachte rubberen handgrepen en heeft dezelfde layout als de Nintendo Switch Pro Controller.' },
-    ];
-    // tslint:enable: max-line-length
-  }
+  constructor(private httpClient: HttpClient) {}
 
   public getProducts(): Observable<Product[]> {
-    return this.products$;
+    return this.httpClient.get<Product[]>(`${this.baseUrl}`);
   }
 
-  public getProduct(id: number): Product {
-    return this.products.find((product: Product) => product.id === id);
-  }
-
-  public loadProducts(): void {
-    this.products$.emit(this.products);
-  }
-
-  public productExists(id: number): boolean {
-    return this.products.some((product: Product) => product.id === id);
+  public getProduct(id: number): Observable<Product> {
+    return this.httpClient.get<Product>(`${this.baseUrl}/${id}`);
   }
 }

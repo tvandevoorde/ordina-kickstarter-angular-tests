@@ -26,7 +26,6 @@ export class ProductCatalogComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.productService.loadProducts();
   }
 
   ngOnDestroy(): void {

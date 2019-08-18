@@ -13,7 +13,7 @@ export class ProductDetailExistsGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     const id = route.params.id;
-    if (!id || !this.productService.productExists(parseInt(id, 10))) {
+    if (!id) {
       return false;
     }
     return true;
