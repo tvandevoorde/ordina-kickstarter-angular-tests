@@ -6,6 +6,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CoreModule } from './core/core.module';
 import { ProductCatalogModule } from './product-catalog/product-catalog.module';
 import { ShoppingCartModule } from './shopping-cart/shopping-cart.module';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ShoppingCartModule } from './shopping-cart/shopping-cart.module';
     BrowserModule,
     CoreModule,
     ProductCatalogModule,
-    ShoppingCartModule
+    ShoppingCartModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
