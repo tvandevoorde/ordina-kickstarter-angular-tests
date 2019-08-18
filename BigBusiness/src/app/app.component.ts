@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Product } from './product.model';
-import { ShoppingCartItem } from './shopping-cart-item.model';
+import { Product } from './core/models/product.model';
+import { ShoppingCartItem } from './core/models/shopping-cart-item.model';
 import { QueryValueType } from '@angular/compiler/src/core';
 
 @Component({
@@ -11,7 +11,7 @@ import { QueryValueType } from '@angular/compiler/src/core';
 export class AppComponent {
   products: Product[];
   shoppingCart: ShoppingCartItem[];
-  total: number = 0;
+  total: number;
 
   constructor() {
     this.products = [
@@ -29,6 +29,7 @@ export class AppComponent {
       { name: 'Nintendo Switch Wired Controller', price: 34.98 },
     ];
     this.shoppingCart = [];
+    this.total = 0;
   }
 
     addToCart(product: Product): void {
