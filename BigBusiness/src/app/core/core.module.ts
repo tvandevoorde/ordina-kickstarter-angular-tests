@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShoppingCartService } from './services/shopping-cart.service';
 import { ProductService } from './services/product.service';
+import { ProductDetailExistsGuard } from './guards/product-detail-exists.guard';
 
 @NgModule({
   declarations: [],
@@ -10,7 +11,8 @@ import { ProductService } from './services/product.service';
   ],
   providers: [
     ShoppingCartService,
-    ProductService
+    ProductService,
+    ProductDetailExistsGuard
   ]
 })
 export class CoreModule { }

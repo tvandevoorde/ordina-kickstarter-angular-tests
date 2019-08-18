@@ -39,4 +39,8 @@ export class ProductService {
   public loadProducts(): void {
     this.products$.emit(this.products);
   }
+
+  public productExists(id: number): boolean {
+    return this.products.some((product: Product) => product.id === id);
+  }
 }
