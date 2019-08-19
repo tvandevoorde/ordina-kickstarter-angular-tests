@@ -24,11 +24,13 @@ export class AppComponent {
   addToCart(product: Product): void {
     this.shoppingCartService.addToCart(product);
     this.shoppingCart = this.shoppingCartService.getShoppingCart();
+    this.total = this.shoppingCartService.getTotal();
   }
 
   removeFromCart(item: ShoppingCartItem): void {
     this.shoppingCartService.removeFromCart(item);
     this.shoppingCart = this.shoppingCartService.getShoppingCart();
+    this.total = this.shoppingCartService.getTotal();
   }
 
 }
