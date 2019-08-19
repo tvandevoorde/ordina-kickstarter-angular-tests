@@ -12,7 +12,8 @@
       <h2>Shopping cart</h2>
       <app-shopping-cart
         [shoppingCartItems]="shoppingCart"
-        [total]="total">
+        [total]="total"
+        (removeItem)="removeFromCart($event)">
       </app-shopping-cart>
     </div>
   </div>
